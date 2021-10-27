@@ -1,10 +1,10 @@
 /*
- * @lc app=leetcode id=236 lang=typescript
+ * @lc app=leetcode id=235 lang=typescript
  *
- * [236] Lowest Common Ancestor of a Binary Tree
+ * [235] Lowest Common Ancestor of a Binary Search Tree
  */
 
-// Definition for a binary tree node.
+//  Definition for a binary tree node.
 // @ts-ignore
 class TreeNode {
   val: number;
@@ -24,9 +24,15 @@ function lowestCommonAncestor(
   p: TreeNode | null,
   q: TreeNode | null
 ): TreeNode | null {
-  if (!root || root === p || root === q) return root;
-  const left = lowestCommonAncestor(root.left, p, q);
-  const right = lowestCommonAncestor(root.right, p, q);
-  return left && right ? root : left || right;
+  const pVal = p.val;
+  const qVal = q.val;
+
+  while (root) {
+    const rootVal = root.val;
+    if (rootVal > pVal && rootVal > qVal) root = root.left;
+    else if (rootVal < pVal && rootVal < qVal) root = root.right;
+    else return root;
+  }
+  return root;
 }
 // @lc code=end
